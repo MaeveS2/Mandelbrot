@@ -6,21 +6,11 @@ import java.awt.image.BufferedImage;
 import java.nio.file.Path;
 
 public class Mandelbrot extends JPanel {
-<<<<<<< HEAD
     public static final int ITERATIONS = 1000;
-=======
-    public static final int ITERATIONS = 10000;
->>>>>>> fd144e97df649c9cef49f6d82837fa8542ccc306
     public static final int THRESHOLD = 500;
     public static final double ZOOM = 1;
     private final BufferedImage buffer;
 
-<<<<<<< HEAD
-=======
-    private final RenderingHints QUALITY_RENDER = new RenderingHints(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-    private final RenderingHints ANTIALIASING = new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
->>>>>>> fd144e97df649c9cef49f6d82837fa8542ccc306
     public Mandelbrot(BufferedImage buffer) {
         this.buffer = buffer;
         int time = renderMandelbrotSet(this.buffer);
@@ -34,13 +24,8 @@ public class Mandelbrot extends JPanel {
         super.paintComponent(g);
 
         Graphics2D gx = (Graphics2D) g;
-<<<<<<< HEAD
         gx.addRenderingHints(new RenderingHints(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY)); // quality render
         gx.addRenderingHints(new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON)); // antialiasing
-=======
-        gx.addRenderingHints(this.ANTIALIASING);
-        gx.addRenderingHints(this.QUALITY_RENDER);
->>>>>>> fd144e97df649c9cef49f6d82837fa8542ccc306
 
 
         gx.drawImage(this.buffer, 0, 0, null);
@@ -72,8 +57,7 @@ public class Mandelbrot extends JPanel {
                 }
 
                 int c = (int) Util.map(n, 0, 100, 0, 0xFF);
-<<<<<<< HEAD
-                if (Math.abs(re + im) < THRESHOLD) c = 0;
+                if (Math.abs(re + im) < THRESHOLD) c = 0x000000;
 
                 /* COLORS:
                  * c<<0: blue
@@ -82,11 +66,7 @@ public class Mandelbrot extends JPanel {
                  * use bitwise or to mix colors, xor to invert the color e.g. c | c<<16 is purple/pink
                  * trying to mix already mixed colors will make it white
                  */
-                buffer.setRGB(x, y, c | c<<16);
-=======
-                if (Math.abs(re + im) < THRESHOLD) c = 0x000000;
-                buffer.setRGB(x, y, c);
->>>>>>> fd144e97df649c9cef49f6d82837fa8542ccc306
+                buffer.setRGB(x, y, c<<8 | c<<16);
             }
         }
         return (int) (System.currentTimeMillis() - start);
